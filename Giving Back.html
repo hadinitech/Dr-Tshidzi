@@ -109,6 +109,7 @@
 
         /* Hero Section */
         .hero {
+            margin-top: 10vh;
             min-height: 60vh;
             background: linear-gradient(135deg, var(--primary) 0%, #fae8e9 100%);
             display: flex;
@@ -754,6 +755,21 @@
     </footer>
 
     <script>
+        // Register ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Close menu when clicking nav link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+        
         gsap.registerPlugin(ScrollTrigger);
 
         gsap.utils.toArray('.fade-in').forEach(element => {

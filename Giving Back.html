@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giving Back - Dr Tshidzi Medical Practice</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #F2D6D7;
+            --button: #84535C;
+            --dark: #3a2629;
+            --light: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background: #fafafa;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 5%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--button);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: #b79498;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(132, 83, 92, 0.3);
+            color: #ffffff;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--button);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 60vh;
+            background: linear-gradient(135deg, var(--primary) 0%, #fae8e9 100%);
+            display: flex;
+            align-items: center;
+            padding: 6rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            top: -150px;
+            right: -150px;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            z-index: 1;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            color: var(--dark);
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        section {
+            padding: 5rem 5%;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .section-text {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--dark);
+            opacity: 0.85;
+            max-width: 900px;
+            margin-bottom: 3rem;
+        }
+
+        .initiative-image {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.initiative-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.initiative-card:hover .initiative-image img {
+    transform: scale(1.1);
+}
+
+        /* Impact Stats */
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(132, 83, 92, 0.15);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--button);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 50px rgba(132, 83, 92, 0.2);
+        }
+
+        .gallery-image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover .gallery-image img {
+    transform: scale(1.1);
+}
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 2rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Initiatives Section */
+        .initiatives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .initiative-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .initiative-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(132, 83, 92, 0.15);
+        }
+
+        .initiative-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--button), #a67079);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .initiative-content {
+            padding: 2.5rem;
+        }
+
+        .initiative-title {
+            font-size: 1.6rem;
+            color: var(--button);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .initiative-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+        .initiative-tag {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--button);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            background: var(--primary);
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .quote-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quote-icon {
+            font-size: 4rem;
+            color: var(--button);
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+
+        .quote-text {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--dark);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .quote-author {
+            font-size: 1.2rem;
+            color: var(--button);
+            font-weight: 600;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--button), #a67079);
+            color: white;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--button);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 5%;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                transition: left 0.3s ease;
+                align-items: flex-start;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .initiatives-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quote-text {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding: 4rem 5%;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 3rem 5%;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .initiative-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .quote-text {
+                font-size: 1.2rem;
+            }
+        }
+
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="Images/Dr Tshidzi Logo.png" alt="">
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="Prices.html">Prices</a></li>
+                <li><a href="Giving Back.html">Giving Back</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="index.html#contact" class="nav-cta">Book Consultation</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in">Giving Back to Our Community</h1>
+            <p class="fade-in">Dr. Tshidzi is passionate about giving back. Beyond her medical practice, she regularly speaks at events and actively participates in community outreach initiatives. Whether it's donating essential items or supporting health and wellness drives, she is committed to making a meaningful impact in the lives of others.</p>
+        </div>
+    </section>
+
+    <!-- Impact Stats -->
+    <section>
+        <div class="container">
+            <div class="impact-stats">
+                <div class="stat-card fade-in">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Community Members Served</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Community Events</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Health Talks & Workshops</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Items Donated</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Initiatives -->
+    <section style="background: white;">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Community Initiatives</h2>
+            <p class="section-text fade-in">Through various outreach programs and partnerships, we strive to make healthcare and wellness accessible to everyone in our community.</p>
+            
+            <div class="initiatives-grid">
+    <div class="initiative-card fade-in">
+        <div class="initiative-image">
+            <img src="Images/Talk.jpeg" alt="Health Talks">
+        </div>
+        <div class="initiative-content">
+            <h3 class="initiative-title">Health Talks & Education</h3>
+            <p class="initiative-text">Dr. Tshidzi regularly speaks at schools, churches, and community centers, educating women about reproductive health, wellness, and preventive care.</p>
+            <span class="initiative-tag">Education</span>
+        </div>
+    </div>
+
+    <div class="initiative-card fade-in">
+        <div class="initiative-image">
+            <img src="Images/dr.jpeg" alt="Community Outreach">
+        </div>
+        <div class="initiative-content">
+            <h3 class="initiative-title">Community Outreach</h3>
+            <p class="initiative-text">Active participation in community health drives, providing free health screenings, wellness checks, and health consultations to underserved communities.</p>
+            <span class="initiative-tag">Healthcare Access</span>
+        </div>
+    </div>
+
+    <div class="initiative-card fade-in">
+        <div class="initiative-image">
+            <img src="Images/pads.jpeg" alt="Essential Donations">
+        </div>
+        <div class="initiative-content">
+            <h3 class="initiative-title">Essential Donations</h3>
+            <p class="initiative-text">Regular donation drives providing essential items such as hygiene products, baby care items, and health supplies to those in need.</p>
+            <span class="initiative-tag">Community Support</span>
+        </div>
+    </div>
+
+    <div class="initiative-card fade-in">
+        <div class="initiative-image">
+            <img src="Images/yoga.jpeg" alt="Wellness Programs">
+        </div>
+        <div class="initiative-content">
+            <h3 class="initiative-title">Wellness Programs</h3>
+            <p class="initiative-text">Supporting health and wellness drives focused on women's empowerment, mental health awareness, and holistic wellbeing.</p>
+            <span class="initiative-tag">Wellness</span>
+        </div>
+    </div>
+</div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section>
+        <div class="container">
+            <h2 class="section-title fade-in">Community Impact Gallery</h2>
+            <p class="section-text fade-in">A glimpse into our community outreach activities and the lives we've touched.</p>
+            
+            <div class="gallery-grid">
+    <div class="gallery-item fade-in">
+        <div class="gallery-image">
+            <img src="Images/event.jpeg" alt="Health Talk">
+            <div class="gallery-overlay">
+                <div class="gallery-title">Health Talk at Community Center</div>
+                <div class="gallery-description">Educating women about reproductive health and wellness</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-item fade-in">
+        <div class="gallery-image">
+            <img src="Images/padss.jpeg" alt="Donation Drive">
+            <div class="gallery-overlay">
+                <div class="gallery-title">Donation Drive</div>
+                <div class="gallery-description">Distributing essential hygiene products to families in need</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-item fade-in">
+        <div class="gallery-image">
+            <img src="Images/padsss.jpeg" alt="Health Screening">
+            <div class="gallery-overlay">
+                <div class="gallery-title">Free Health Screening Camp</div>
+                <div class="gallery-description">Providing accessible healthcare to underserved communities</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-item fade-in">
+        <div class="gallery-image">
+            <img src="Images/padssss.jpeg" alt="Mentorship">
+            <div class="gallery-overlay">
+                <div class="gallery-title">Youth Mentorship Session</div>
+                <div class="gallery-description">Inspiring the next generation of healthcare professionals</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-item fade-in">
+        <div class="gallery-image">
+            <img src="Images/yogaa.jpeg" alt="Wellness Workshop">
+            <div class="gallery-overlay">
+                <div class="gallery-title">Wellness Workshop</div>
+                <div class="gallery-description">Teaching women about self-care and holistic health</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-item fade-in">
+        <div class="gallery-image">
+            <img src="Images/mombaby.jpeg" alt="Community Partnership">
+            <div class="gallery-overlay">
+                <div class="gallery-title">Community Partnership Event</div>
+                <div class="gallery-description">Collaborating with local organizations for greater impact</div>
+            </div>
+        </div>
+    </div>
+    <div class="gallery-item fade-in">
+        <div class="gallery-image">
+            <img src="Images/talkk.jpeg" alt="Community Partnership">
+            <div class="gallery-overlay">
+                <div class="gallery-title">Community Partnership Event</div>
+                <div class="gallery-description">Collaborating with local organizations for greater impact</div>
+            </div>
+        </div>
+    </div>
+    <div class="gallery-item fade-in">
+        <div class="gallery-image">
+            <img src="Images/dr.jpeg" alt="Community Partnership">
+            <div class="gallery-overlay">
+                <div class="gallery-title">Community Partnership Event</div>
+                <div class="gallery-description">Collaborating with local organizations for greater impact</div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="quote-content fade-in">
+            <div class="quote-icon">"</div>
+            <p class="quote-text">Giving back is not just about what we can offer, but about creating lasting change and empowering others to take control of their health and wellbeing.</p>
+            <p class="quote-author">— Dr. Tshidzi</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container fade-in">
+            <h2>Join Us in Making a Difference</h2>
+            <p>Want to partner with us on community initiatives or learn more about our outreach programs?</p>
+            <a href="#contact" class="btn-primary">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3 style="margin-bottom: 1rem;">Dr Tshidzi Medical Practice</h3>
+            <p>Women's Health • Wellness • Aesthetic Medicine</p>
+            <p style="margin-top: 1.5rem;">© 2026 All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray('.fade-in').forEach(element => {
+            gsap.from(element, {
+                scrollTrigger: {
+                    trigger: element,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+        });
+    </script>
+</body>
+</html>
